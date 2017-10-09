@@ -6,6 +6,10 @@
 package hrms;
 
 import java.awt.HeadlessException;
+import java.math.BigInteger;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -102,11 +106,11 @@ public class LogIn extends javax.swing.JFrame {
         jPanel1.add(txtpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 280, 20));
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\logoo2.png")); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\logoo2.png")); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 320, 290));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\ba.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\ba.jpg")); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 550));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -135,22 +139,21 @@ public class LogIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        Home h = new Home();
-        h.setVisible(true);
-        this.dispose();
-        /*try {
+
+        try {
             String username = txtName.getText();
             char[] p = txtpass.getPassword();
             String password = new String(p);
-            String sql = "Select * FROM user WHERE username='" + username + "'AND password=MD5('" + password + "');";
-            MySqlConnect.connectDb();
-            pst = MySqlConnect.conn.prepareStatement(sql);
+            String pass = MD5(password);
+            String sql = "Select * FROM user WHERE username='" + username + "'AND password='" + pass + "';";
+            SqliteConnect.connectDb();
+            pst = SqliteConnect.conn.prepareStatement(sql);
             rs = pst.executeQuery();
             if (username.equals("") && password.equals("")) {
                 JOptionPane.showMessageDialog(null, "Username and Password can't be empty");
             } else if (rs.next()) {
                 rs.close();
-                MySqlConnect.conn.close();
+                SqliteConnect.conn.close();
                 Home h = new Home();
                 h.setVisible(true);
                 this.dispose();
@@ -160,7 +163,7 @@ public class LogIn extends javax.swing.JFrame {
 
         } catch (HeadlessException | SQLException e) {
             System.out.println(e);
-        }*/
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
@@ -210,4 +213,19 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JTextField txtName;
     private javax.swing.JPasswordField txtpass;
     // End of variables declaration//GEN-END:variables
+
+    private String MD5(String password) {
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance("MD5");
+            digest.update(password.getBytes(Charset.forName("US-ASCII")), 0, password.length());
+            byte[] magnitude = digest.digest();
+            BigInteger bi = new BigInteger(1, magnitude);
+            String hash = String.format("%0" + (magnitude.length << 1) + "x", bi);
+            return hash;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

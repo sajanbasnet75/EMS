@@ -74,7 +74,6 @@ public class MyEmployees extends javax.swing.JFrame {
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 10, 40));
 
         nextBtn.setBackground(new java.awt.Color(0, 102, 102));
-        nextBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\next2.png")); // NOI18N
         nextBtn.setBorderPainted(false);
         nextBtn.setFocusPainted(false);
         nextBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -85,7 +84,6 @@ public class MyEmployees extends javax.swing.JFrame {
         jPanel2.add(nextBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 40, 40));
 
         prevBtn1.setBackground(new java.awt.Color(0, 102, 102));
-        prevBtn1.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\prev2.png")); // NOI18N
         prevBtn1.setBorderPainted(false);
         prevBtn1.setFocusPainted(false);
         prevBtn1.addActionListener(new java.awt.event.ActionListener() {

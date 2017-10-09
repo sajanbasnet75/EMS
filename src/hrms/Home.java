@@ -184,7 +184,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(204, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\home3.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\home3.png")); // NOI18N
         jLabel1.setFocusable(false);
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -264,7 +264,7 @@ public class Home extends javax.swing.JFrame {
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 10, 40));
 
         nextBtn.setBackground(new java.awt.Color(0, 102, 102));
-        nextBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\next2.png")); // NOI18N
+        nextBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\next2.png")); // NOI18N
         nextBtn.setBorderPainted(false);
         nextBtn.setFocusPainted(false);
         nextBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -275,7 +275,7 @@ public class Home extends javax.swing.JFrame {
         jPanel2.add(nextBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 40, 40));
 
         prevBtn1.setBackground(new java.awt.Color(0, 102, 102));
-        prevBtn1.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\prev2.png")); // NOI18N
+        prevBtn1.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\prev2.png")); // NOI18N
         prevBtn1.setBorderPainted(false);
         prevBtn1.setFocusPainted(false);
         prevBtn1.addActionListener(new java.awt.event.ActionListener() {
