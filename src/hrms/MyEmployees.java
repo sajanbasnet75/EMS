@@ -5,17 +5,29 @@
  */
 package hrms;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author LORDsajan
  */
 public class MyEmployees extends javax.swing.JFrame {
 
+    Connection conn = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
     /**
      * Creates new form MyEmployees
      */
     public MyEmployees() {
         initComponents();
+
     }
 
     /**
@@ -28,9 +40,6 @@ public class MyEmployees extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jSeparator4 = new javax.swing.JSeparator();
-        lblTime = new javax.swing.JLabel();
-        labelDate = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -39,29 +48,24 @@ public class MyEmployees extends javax.swing.JFrame {
         prevBtn1 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
+        jSeparator6 = new javax.swing.JSeparator();
+        addPanel = new javax.swing.JPanel();
+        addLabel = new javax.swing.JLabel();
+        searchPanel = new javax.swing.JPanel();
+        searchlabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jSeparator4.setBackground(new java.awt.Color(51, 51, 51));
-        jSeparator4.setForeground(new java.awt.Color(153, 153, 153));
-        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, 10, 50));
-
-        lblTime.setBackground(new java.awt.Color(255, 255, 255));
-        lblTime.setFont(new java.awt.Font("Times New Roman", 1, 13)); // NOI18N
-        lblTime.setForeground(new java.awt.Color(255, 255, 255));
-        lblTime.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jPanel1.add(lblTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 60, 110, 30));
-
-        labelDate.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        labelDate.setForeground(new java.awt.Color(255, 255, 255));
-        labelDate.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jPanel1.add(labelDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 40, 140, 30));
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -74,6 +78,7 @@ public class MyEmployees extends javax.swing.JFrame {
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 10, 40));
 
         nextBtn.setBackground(new java.awt.Color(0, 102, 102));
+        nextBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\next2.png")); // NOI18N
         nextBtn.setBorderPainted(false);
         nextBtn.setFocusPainted(false);
         nextBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -84,6 +89,7 @@ public class MyEmployees extends javax.swing.JFrame {
         jPanel2.add(nextBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 40, 40));
 
         prevBtn1.setBackground(new java.awt.Color(0, 102, 102));
+        prevBtn1.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\prev2.png")); // NOI18N
         prevBtn1.setBorderPainted(false);
         prevBtn1.setFocusPainted(false);
         prevBtn1.addActionListener(new java.awt.event.ActionListener() {
@@ -108,13 +114,51 @@ public class MyEmployees extends javax.swing.JFrame {
         jButton2.setFocusPainted(false);
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 60, 20));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 40));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 40));
 
-        jSeparator5.setBackground(new java.awt.Color(51, 51, 51));
-        jSeparator5.setForeground(new java.awt.Color(153, 153, 153));
-        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 140, 20));
+        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 20, 530));
+        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 250, 10));
+        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 250, 10));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 769, 550));
+        addPanel.setBackground(new java.awt.Color(51, 51, 51));
+        addPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        addLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        addLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\adder.png")); // NOI18N
+        addLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                addLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                addLabelMouseExited(evt);
+            }
+        });
+        addPanel.add(addLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 90));
+
+        jPanel1.add(addPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 270, 90));
+
+        searchPanel.setBackground(new java.awt.Color(51, 51, 51));
+        searchPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        searchlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        searchlabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\searcher.png")); // NOI18N
+        searchlabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                searchlabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                searchlabelMouseExited(evt);
+            }
+        });
+        searchPanel.add(searchlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 90));
+
+        jPanel1.add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 270, 90));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 580));
 
         pack();
         setLocationRelativeTo(null);
@@ -127,6 +171,31 @@ public class MyEmployees extends javax.swing.JFrame {
     private void prevBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevBtn1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_prevBtn1ActionPerformed
+
+    private void addLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addLabelMouseEntered
+        addPanel.setBackground(new java.awt.Color(102, 102, 102));
+    }//GEN-LAST:event_addLabelMouseEntered
+
+    private void addLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addLabelMouseExited
+        addPanel.setBackground(new java.awt.Color(51, 51, 51));
+    }//GEN-LAST:event_addLabelMouseExited
+
+    private void searchlabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchlabelMouseEntered
+        searchPanel.setBackground(new java.awt.Color(102, 102, 102));
+    }//GEN-LAST:event_searchlabelMouseEntered
+
+    private void searchlabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchlabelMouseExited
+        searchPanel.setBackground(new java.awt.Color(51, 51, 51));
+    }//GEN-LAST:event_searchlabelMouseExited
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+    }//GEN-LAST:event_formWindowOpened
+
+    private void addLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addLabelMouseClicked
+        EmployeeForm empForm = new EmployeeForm();
+        empForm.setVisible(true);
+    }//GEN-LAST:event_addLabelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -164,6 +233,8 @@ public class MyEmployees extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addLabel;
+    private javax.swing.JPanel addPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
@@ -173,9 +244,10 @@ public class MyEmployees extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JLabel labelDate;
-    private javax.swing.JLabel lblTime;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JButton nextBtn;
     private javax.swing.JButton prevBtn1;
+    private javax.swing.JPanel searchPanel;
+    private javax.swing.JLabel searchlabel;
     // End of variables declaration//GEN-END:variables
 }

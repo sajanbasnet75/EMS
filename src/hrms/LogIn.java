@@ -139,8 +139,10 @@ public class LogIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-
-        try {
+        Home h = new Home();
+        h.setVisible(true);
+        this.dispose();
+        /*try {
             String username = txtName.getText();
             char[] p = txtpass.getPassword();
             String password = new String(p);
@@ -163,7 +165,7 @@ public class LogIn extends javax.swing.JFrame {
 
         } catch (HeadlessException | SQLException e) {
             System.out.println(e);
-        }
+        }*/
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
