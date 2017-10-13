@@ -5,12 +5,15 @@
  */
 package hrms;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonModel;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -147,6 +150,9 @@ public class MyEmployees extends javax.swing.JFrame {
         searchlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         searchlabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\searcher.png")); // NOI18N
         searchlabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchlabelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 searchlabelMouseEntered(evt);
             }
@@ -193,19 +199,88 @@ public class MyEmployees extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void addLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addLabelMouseClicked
+
         EmployeeForm empForm = new EmployeeForm();
         empForm.setVisible(true);
+        empForm.UpdateBtn.setVisible(false);
+        empForm.DelBtn.setVisible(false);
     }//GEN-LAST:event_addLabelMouseClicked
+
+    private void searchlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchlabelMouseClicked
+        try {
+            String empID = JOptionPane.showInputDialog(null, "Enter the Employee ID");
+            int id = Integer.parseInt(empID);
+            SqliteConnect.connectDb();
+            String sql = "SELECT * FROM employee WHERE emp_id='" + id + "'";
+            System.out.println(sql);
+            pst = SqliteConnect.conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            int count = 0;
+            while (rs.next()) {
+                count++;
+                EmployeeForm empf = new EmployeeForm();
+                empf.setVisible(true);
+                empf.confirmBtn.setVisible(false);
+                empf.firstName.setText(rs.getString("first_name"));
+                empf.middleName.setText(rs.getString("middle_name"));
+                empf.lastName.setText(rs.getString("last_name"));
+                empf.firstName.setText(rs.getString("first_name"));
+                empf.middleName.setText(rs.getString("middle_name"));
+                empf.lastName.setText(rs.getString("last_name"));
+                empf.addressinp.setText(rs.getString("address"));
+                empf.emailinp.setText(rs.getString("email"));
+                empf.contcInp.setText(rs.getString("contact_no"));
+                empf.Department.setText(rs.getString("department"));
+                String gender = rs.getString("gender");
+                if (gender.equalsIgnoreCase("F")) {
+                    empf.F.setSelected(true);
+                } else if (gender.equalsIgnoreCase("Others")) {
+                    empf.others.setSelected(true);
+                } else {
+                    empf.M.setSelected(true);
+                }
+
+                String married = rs.getString("Married");
+                if (married.equalsIgnoreCase("yes")) {
+                    empf.yess.setSelected(true);
+                } else {
+                    empf.noo.setSelected(true);
+                }
+                empf.empId.setText(rs.getString("emp_id"));
+                empf.Designation.setText(rs.getString("designation"));
+                empf.doj.setText(rs.getString("doJoin"));
+                empf.qualifi.setText(rs.getString("qualification"));
+                empf.expInp.setText(rs.getString("yoExp"));
+                empf.workLocation.setText(rs.getString("work_place"));
+                empf.qualifi.setText(rs.getString("qualification"));
+                empf.qualifi.setText(rs.getString("qualification"));
+                empf.post.setSelectedItem(rs.getString("position_type"));
+                empf.mthSalInp.setText(rs.getString("monthlySalary"));
+                empf.yearlyInp.setText(rs.getString("yearlySalary"));
+                empf.deduInp.setText(rs.getString("Deduction"));
+                empf.BonusInp.setText(rs.getString("BonouS"));
+                empf.wageSel.setSelectedItem(rs.getString("wage_type"));
+                empf.NetsalInp.setText(rs.getString("netSalary"));
+                empf.twdInp.setText(rs.getString("totalDays"));
+                empf.halfLeaveinp.setText(rs.getString("halfLeaves"));
+                empf.FullDayinp.setText(rs.getString("fullLeaves"));
+                empf.presentDayInp.setText(rs.getString("totalPresent"));
+
+            }
+            if (count < 1) {
+                JOptionPane.showMessageDialog(null, "No Results Found");
+            }
+        } catch (HeadlessException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid ID");
+        } catch (SQLException ex) {
+            Logger.getLogger(MyEmployees.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_searchlabelMouseClicked
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -213,15 +288,11 @@ public class MyEmployees extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MyEmployees.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MyEmployees.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MyEmployees.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MyEmployees.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
         //</editor-fold>
 
         /* Create and display the form */
