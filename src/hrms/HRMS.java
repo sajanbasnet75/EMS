@@ -5,6 +5,9 @@
  */
 package hrms;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 /**
  *
  * @author LORDsajan
@@ -16,8 +19,18 @@ public class HRMS {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        LogIn obj = new LogIn();
-        obj.setVisible(true);
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+                LogIn obj = new LogIn();
+                obj.setVisible(true);
+            }
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e) {
+
+        }
     }
 
 }

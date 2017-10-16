@@ -12,8 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ButtonModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -44,13 +44,11 @@ public class MyEmployees extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         nextBtn = new javax.swing.JButton();
         prevBtn1 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
@@ -58,6 +56,12 @@ public class MyEmployees extends javax.swing.JFrame {
         addLabel = new javax.swing.JLabel();
         searchPanel = new javax.swing.JPanel();
         searchlabel = new javax.swing.JLabel();
+        mainPanel2 = new javax.swing.JPanel();
+        heading2 = new javax.swing.JPanel();
+        headLabel2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblEmp = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -72,8 +76,6 @@ public class MyEmployees extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 40, 10));
-        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 80, 10));
 
         jSeparator3.setBackground(new java.awt.Color(51, 255, 255));
         jSeparator3.setForeground(new java.awt.Color(51, 204, 255));
@@ -105,22 +107,23 @@ public class MyEmployees extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(0, 153, 153));
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Admin Panel");
+        jButton1.setText("Help");
         jButton1.setBorderPainted(false);
         jButton1.setFocusPainted(false);
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 120, 20));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 70, 30));
 
-        jButton2.setBackground(new java.awt.Color(0, 153, 153));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Help");
-        jButton2.setBorderPainted(false);
-        jButton2.setFocusPainted(false);
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 60, 20));
+        jButton3.setBackground(new java.awt.Color(0, 153, 153));
+        jButton3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Admin Panel");
+        jButton3.setBorderPainted(false);
+        jButton3.setFocusPainted(false);
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 120, 30));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 40));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, 40));
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 20, 530));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 20, 540));
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 250, 10));
         jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 250, 10));
 
@@ -164,7 +167,64 @@ public class MyEmployees extends javax.swing.JFrame {
 
         jPanel1.add(searchPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 270, 90));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 580));
+        mainPanel2.setBackground(new java.awt.Color(149, 183, 221));
+        mainPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        heading2.setBackground(new java.awt.Color(0, 102, 102));
+
+        headLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        headLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        headLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        headLabel2.setText("My EMPOYEE");
+
+        javax.swing.GroupLayout heading2Layout = new javax.swing.GroupLayout(heading2);
+        heading2.setLayout(heading2Layout);
+        heading2Layout.setHorizontalGroup(
+            heading2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(heading2Layout.createSequentialGroup()
+                .addComponent(headLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 997, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        heading2Layout.setVerticalGroup(
+            heading2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(headLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        mainPanel2.add(heading2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1000, 40));
+
+        tblEmp.setAutoCreateRowSorter(true);
+        tblEmp.setBackground(new java.awt.Color(245, 245, 255));
+        tblEmp.setBorder(new javax.swing.border.MatteBorder(null));
+        tblEmp.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        tblEmp.setForeground(new java.awt.Color(51, 0, 51));
+        tblEmp.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tblEmp.setGridColor(new java.awt.Color(204, 204, 255));
+        tblEmp.setIntercellSpacing(new java.awt.Dimension(3, 14));
+        tblEmp.setRowHeight(160);
+        jScrollPane3.setViewportView(tblEmp);
+        if (tblEmp.getColumnModel().getColumnCount() > 0) {
+            tblEmp.getColumnModel().getColumn(0).setHeaderValue("ID");
+            tblEmp.getColumnModel().getColumn(1).setHeaderValue("Name");
+            tblEmp.getColumnModel().getColumn(2).setHeaderValue("Email");
+            tblEmp.getColumnModel().getColumn(3).setHeaderValue("Contact");
+            tblEmp.getColumnModel().getColumn(4).setHeaderValue("Department");
+            tblEmp.getColumnModel().getColumn(5).setHeaderValue("Designation");
+            tblEmp.getColumnModel().getColumn(6).setHeaderValue("Start Date");
+        }
+
+        mainPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 990, 430));
+        mainPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 730, -1));
+
+        jPanel1.add(mainPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 1010, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, 600));
 
         pack();
         setLocationRelativeTo(null);
@@ -195,6 +255,37 @@ public class MyEmployees extends javax.swing.JFrame {
     }//GEN-LAST:event_searchlabelMouseExited
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        DefaultTableModel v = (DefaultTableModel) tblEmp.getModel();
+        v.addColumn("          Photo");
+        v.addColumn("          EmployeeID");
+        v.addColumn("          Name");
+        v.addColumn("          Contact");
+        v.addColumn("          Designation");
+        v.addColumn("          Department");
+        v.addColumn("          Start Date");
+        try {
+            SqliteConnect.connectDb();
+            String sql = "SELECT * FROM employee WHERE status=1 order by emp_id DESC ";
+            System.out.println(sql);
+            pst = SqliteConnect.conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                System.out.println(sql);
+                String name = rs.getString("first_name") + " " + rs.getString("last_name");
+                v.addRow(new Object[]{
+                    "       photo",
+                    "            " + rs.getString("emp_id"),
+                    "       " + name,
+                    "        " + rs.getString("contact_no"),
+                    "      " + rs.getString("designation"),
+                    "         " + rs.getString("department"),
+                    "        " + rs.getString("doJoin")
+                });
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -207,12 +298,12 @@ public class MyEmployees extends javax.swing.JFrame {
     }//GEN-LAST:event_addLabelMouseClicked
 
     private void searchlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchlabelMouseClicked
+
         try {
             String empID = JOptionPane.showInputDialog(null, "Enter the Employee ID");
             int id = Integer.parseInt(empID);
             SqliteConnect.connectDb();
             String sql = "SELECT * FROM employee WHERE emp_id='" + id + "'";
-            System.out.println(sql);
             pst = SqliteConnect.conn.prepareStatement(sql);
             rs = pst.executeQuery();
             int count = 0;
@@ -220,6 +311,8 @@ public class MyEmployees extends javax.swing.JFrame {
                 count++;
                 EmployeeForm empf = new EmployeeForm();
                 empf.setVisible(true);
+                empf.UpdateBtn.setEnabled(true);
+                empf.DelBtn.setEnabled(true);
                 empf.confirmBtn.setVisible(false);
                 empf.firstName.setText(rs.getString("first_name"));
                 empf.middleName.setText(rs.getString("middle_name"));
@@ -229,6 +322,7 @@ public class MyEmployees extends javax.swing.JFrame {
                 empf.lastName.setText(rs.getString("last_name"));
                 empf.addressinp.setText(rs.getString("address"));
                 empf.emailinp.setText(rs.getString("email"));
+                empf.dobInp.setText(rs.getString("dob"));
                 empf.contcInp.setText(rs.getString("contact_no"));
                 empf.Department.setText(rs.getString("department"));
                 String gender = rs.getString("gender");
@@ -306,19 +400,26 @@ public class MyEmployees extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addLabel;
     private javax.swing.JPanel addPanel;
+    private javax.swing.JLabel headLabel;
+    private javax.swing.JLabel headLabel2;
+    private javax.swing.JPanel heading;
+    private javax.swing.JPanel heading2;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JPanel mainPanel2;
     private javax.swing.JButton nextBtn;
     private javax.swing.JButton prevBtn1;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JLabel searchlabel;
+    private javax.swing.JTable tblEmp;
     // End of variables declaration//GEN-END:variables
 }
