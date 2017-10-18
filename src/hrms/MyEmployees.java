@@ -6,12 +6,15 @@
 package hrms;
 
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,6 +27,7 @@ public class MyEmployees extends javax.swing.JFrame {
     Connection conn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
+    ImageIcon img;
 
     /**
      * Creates new form MyEmployees
@@ -219,7 +223,7 @@ public class MyEmployees extends javax.swing.JFrame {
             tblEmp.getColumnModel().getColumn(6).setHeaderValue("Start Date");
         }
 
-        mainPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 990, 430));
+        mainPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 990, 450));
         mainPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 730, -1));
 
         jPanel1.add(mainPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 1010, -1));
@@ -255,6 +259,7 @@ public class MyEmployees extends javax.swing.JFrame {
     }//GEN-LAST:event_searchlabelMouseExited
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
         DefaultTableModel v = (DefaultTableModel) tblEmp.getModel();
         v.addColumn("          Photo");
         v.addColumn("          EmployeeID");
@@ -264,16 +269,24 @@ public class MyEmployees extends javax.swing.JFrame {
         v.addColumn("          Department");
         v.addColumn("          Start Date");
         try {
+
             SqliteConnect.connectDb();
             String sql = "SELECT * FROM employee WHERE status=1 order by emp_id DESC ";
+
             System.out.println(sql);
             pst = SqliteConnect.conn.prepareStatement(sql);
             rs = pst.executeQuery();
             while (rs.next()) {
                 System.out.println(sql);
+
+                byte[] imag = rs.getBytes("photo");
+                img = new ImageIcon(imag);
+                Image Eimg = img.getImage();
+                ImageIcon newEimg = new ImageIcon(Eimg);
                 String name = rs.getString("first_name") + " " + rs.getString("last_name");
+
                 v.addRow(new Object[]{
-                    "       photo",
+                    newEimg,
                     "            " + rs.getString("emp_id"),
                     "       " + name,
                     "        " + rs.getString("contact_no"),
@@ -314,6 +327,13 @@ public class MyEmployees extends javax.swing.JFrame {
                 empf.UpdateBtn.setEnabled(true);
                 empf.DelBtn.setEnabled(true);
                 empf.confirmBtn.setVisible(false);
+                //image
+                byte[] imag = rs.getBytes("photo");
+                img = new ImageIcon(imag);
+                Image Eimg = img.getImage();
+                Image sEimg = Eimg.getScaledInstance(empf.imageLabel.getWidth(), empf.imageLabel.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon newEimg = new ImageIcon(sEimg);
+                empf.imageLabel.setIcon(newEimg);
                 empf.firstName.setText(rs.getString("first_name"));
                 empf.middleName.setText(rs.getString("middle_name"));
                 empf.lastName.setText(rs.getString("last_name"));
@@ -400,9 +420,7 @@ public class MyEmployees extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addLabel;
     private javax.swing.JPanel addPanel;
-    private javax.swing.JLabel headLabel;
     private javax.swing.JLabel headLabel2;
-    private javax.swing.JPanel heading;
     private javax.swing.JPanel heading2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
@@ -414,7 +432,6 @@ public class MyEmployees extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel mainPanel2;
     private javax.swing.JButton nextBtn;
     private javax.swing.JButton prevBtn1;

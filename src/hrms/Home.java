@@ -5,8 +5,11 @@
  */
 package hrms;
 
+import java.text.DateFormat;
+import static java.text.DateFormat.LONG;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  *
@@ -24,7 +27,12 @@ public class Home extends javax.swing.JFrame {
         jPanel5.setVisible(false);
         jPanel6.setVisible(false);
         Date d = new Date();
+        DateFormat df = null;
+        String myString = DateFormat.getDateInstance(LONG, Locale.JAPAN).format(d);
+        System.out.println(myString);
+
         String da = new SimpleDateFormat("E \n YYYY-MMM-dd").format(d);
+
         String t = new SimpleDateFormat("hh:mm:ss a zzz").format(d);
         labelDate.setText(da);
         lblTime.setText(t);

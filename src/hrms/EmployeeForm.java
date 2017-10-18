@@ -1,11 +1,22 @@
 package hrms;
 
 import java.awt.HeadlessException;
+import java.awt.Image;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -16,11 +27,14 @@ public class EmployeeForm extends javax.swing.JFrame {
     Connection conn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
+    private String path = null;
+    byte[] emp_image = null;
 
     public EmployeeForm() {
         initComponents();
         UpdateBtn.setEnabled(false);
         DelBtn.setEnabled(false);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -32,6 +46,9 @@ public class EmployeeForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        imageLabel = new javax.swing.JLabel();
+        javax.swing.JButton uploadBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         n = new javax.swing.JSeparator();
@@ -51,8 +68,6 @@ public class EmployeeForm extends javax.swing.JFrame {
         dobInp = new javax.swing.JTextField();
         jSeparator9 = new javax.swing.JSeparator();
         addresslab5 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        imageLabel = new javax.swing.JLabel();
         others = new javax.swing.JRadioButton();
         noo = new javax.swing.JRadioButton();
         F = new javax.swing.JRadioButton();
@@ -141,6 +156,26 @@ public class EmployeeForm extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(220, 220, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel7.setBackground(new java.awt.Color(210, 234, 255));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imageLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\ee.png")); // NOI18N
+        imageLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel7.add(imageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 180, 190));
+
+        uploadBtn.setBackground(new java.awt.Color(0, 153, 204));
+        uploadBtn.setText("UPLOAD");
+        uploadBtn.setToolTipText("");
+        uploadBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadBtnActionPerformed(evt);
+            }
+        });
+        jPanel7.add(uploadBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 140, 30));
+
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 290));
 
         jPanel3.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -256,31 +291,6 @@ public class EmployeeForm extends javax.swing.JFrame {
         addresslab5.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         addresslab5.setText("Married");
         jPanel2.add(addresslab5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 730, 70, 30));
-
-        jPanel7.setBackground(new java.awt.Color(210, 234, 255));
-
-        imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imageLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\ee.png")); // NOI18N
-        imageLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
-        );
-
-        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 270));
 
         others.setBackground(new java.awt.Color(220, 220, 255));
         genderBtn.add(others);
@@ -765,6 +775,11 @@ public class EmployeeForm extends javax.swing.JFrame {
 
         post.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "full time", "part time", "Intern" }));
         post.setToolTipText("");
+        post.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                postActionPerformed(evt);
+            }
+        });
         jPanel1.add(post, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 240, 130, 30));
 
         wageSel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Annual", "Hourly" }));
@@ -860,7 +875,17 @@ public class EmployeeForm extends javax.swing.JFrame {
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
 
         try {
-            SqliteConnect.connectDb();
+
+            //image
+            File imgg = new File(path);
+            FileInputStream phot = new FileInputStream(imgg);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] b = new byte[1024];
+            for (int i; (i = phot.read(b)) != -1;) {
+                baos.write(b, 0, i);
+            }
+            emp_image = baos.toByteArray();
+
             String first = firstName.getText();
             String middle = middleName.getText();
             String last = lastName.getText();
@@ -903,10 +928,12 @@ public class EmployeeForm extends javax.swing.JFrame {
             String fLev = FullDayinp.getText();
             String pres = presentDayInp.getText();
             String hLev = halfLeaveinp.getText();
-            String sql = "INSERT INTO employee (emp_id, first_name, middle_name, last_name, photo, gender, dob, Married, address, contact_no, email, designation, department, qualification, position_type, yoExp, doJoin, work_place, monthlySalary, yearlySalary, Deduction, Insurance, netSalary, wage_type, totalDays, halfLeaves, fullLeaves, totalPresent)"
-                    + "VALUES('" + empID + "','" + first + "','" + middle + "','" + last + "','" + null + "','" + gender + "','" + dob + "','" + married + "','" + add + "','" + contac + "','" + email + "','" + desig + "','" + dep + "','" + qualif + "','" + position + "','" + exp + "','" + Doj + "','" + workP + "','" + mthsal + "','" + yearSal + "','" + dedu + "','" + insurance + "','" + netsal + "','" + Wage + "','" + twd + "','" + hLev + "','" + fLev + "','" + pres + "');";
-            System.out.println(sql);
+            SqliteConnect.connectDb();
+            String sql = "INSERT INTO employee (photo,emp_id, first_name, middle_name, last_name, gender, dob, Married, address, contact_no, email, designation, department, qualification, position_type, yoExp, doJoin, work_place, monthlySalary, yearlySalary, Deduction, Insurance, netSalary, wage_type, totalDays, halfLeaves, fullLeaves, totalPresent)"
+                    + "VALUES(?,'" + empID + "','" + first + "','" + middle + "','" + last + "','" + gender + "','" + dob + "','" + married + "','" + add + "','" + contac + "','" + email + "','" + desig + "','" + dep + "','" + qualif + "','" + position + "','" + exp + "','" + Doj + "','" + workP + "','" + mthsal + "','" + yearSal + "','" + dedu + "','" + insurance + "','" + netsal + "','" + Wage + "','" + twd + "','" + hLev + "','" + fLev + "','" + pres + "');";
             pst = SqliteConnect.conn.prepareStatement(sql);
+            System.out.println(sql);
+            pst.setBytes(1, emp_image);
             int a = pst.executeUpdate();
             if (a != 0) {
                 JOptionPane.showMessageDialog(null, "Employee added successfully");
@@ -915,7 +942,13 @@ public class EmployeeForm extends javax.swing.JFrame {
             }
         } catch (HeadlessException | NumberFormatException | SQLException e) {
             System.out.println(e);
+            JOptionPane.showMessageDialog(null, e);
             JOptionPane.showMessageDialog(null, "error");
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_confirmBtnActionPerformed
 
@@ -944,64 +977,96 @@ public class EmployeeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lastNameActionPerformed
 
     private void UpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBtnActionPerformed
-
-        String first = firstName.getText();
-        System.out.println(first);
-        String middle = middleName.getText();
-        String last = lastName.getText();
-        String add = addressinp.getText();
-        String email = emailinp.getText();
-        String contac = contcInp.getText();
-        String gender;
-        if (M.isSelected()) {
-            gender = "M";
-        } else if (F.isSelected()) {
-            gender = "F";
-        } else {
-            gender = "others";
-        }
-        String dob = dobInp.getText();
-        String married;
-        if (yess.isSelected()) {
-            married = "Yes";
-        } else {
-            married = "No";
-        }
-
-        String empID = empId.getText();
-        String desig = Designation.getText();
-        String dep = Department.getText();
-        String Doj = doj.getText();
-        String qualif = qualifi.getText();
-        String exp = expInp.getText();
-        String workP = workLocation.getText();
-        String position = (String) post.getSelectedItem();
-        String mthsal = mthSalInp.getText();
-        String yearSal = yearlyInp.getText();
-        String dedu = deduInp.getText();
-        String Bonous = BonusInp.getText();
-        String Wage = (String) wageSel.getSelectedItem();
-        String netsal = NetsalInp.getText();
-        String twd = twdInp.getText();
-        String fLev = FullDayinp.getText();
-        String pres = presentDayInp.getText();
-        String hLev = halfLeaveinp.getText();
         try {
+            //image
+            File imgg = new File(path);
+            FileInputStream phot = new FileInputStream(imgg);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] b = new byte[1024];
+            for (int i; (i = phot.read(b)) != -1;) {
+                baos.write(b, 0, i);
+            }
+            emp_image = baos.toByteArray();
+            String first = firstName.getText();
+            System.out.println(first);
+            String middle = middleName.getText();
+            String last = lastName.getText();
+            String add = addressinp.getText();
+            String email = emailinp.getText();
+            String contac = contcInp.getText();
+            String gender;
+            if (M.isSelected()) {
+                gender = "M";
+            } else if (F.isSelected()) {
+                gender = "F";
+            } else {
+                gender = "others";
+            }
+            String dob = dobInp.getText();
+            String married;
+            if (yess.isSelected()) {
+                married = "Yes";
+            } else {
+                married = "No";
+            }
+
+            String empID = empId.getText();
+            String desig = Designation.getText();
+            String dep = Department.getText();
+            String Doj = doj.getText();
+            String qualif = qualifi.getText();
+            String exp = expInp.getText();
+            String workP = workLocation.getText();
+            String position = (String) post.getSelectedItem();
+            String mthsal = mthSalInp.getText();
+            String yearSal = yearlyInp.getText();
+            String dedu = deduInp.getText();
+            String Bonous = BonusInp.getText();
+            String Wage = (String) wageSel.getSelectedItem();
+            String netsal = NetsalInp.getText();
+            String twd = twdInp.getText();
+            String fLev = FullDayinp.getText();
+            String pres = presentDayInp.getText();
+            String hLev = halfLeaveinp.getText();
             SqliteConnect.connectDb();
-            String sql = "UPDATE employee SET first_name='" + first + "', middle_name='" + middle + "', last_name='" + last + "', gender='" + gender + "', dob='" + dob + "', Married='" + married + "', address='" + add + "', contact_no='" + contac + "', email='" + email + "', designation='" + desig + "', department='" + dep + "', qualification='" + qualif + "', position_type='" + position + "', yoExp='" + exp + "', doJoin='" + Doj + "', work_place='" + workP + "', monthlySalary='" + mthsal + "', yearlySalary='" + yearSal + "', Deduction='" + dedu + "', netSalary='" + netsal + "', wage_type='" + Wage + "', totalDays='" + twd + "', halfLeaves='" + hLev + "', fullLeaves='" + fLev + "', totalPresent='" + pres + "'" + "WHERE emp_id='" + empID + "';";
-            System.out.println(sql);
+            String sql = "UPDATE employee SET photo=?,first_name='" + first + "', middle_name='" + middle + "', last_name='" + last + "', gender='" + gender + "', dob='" + dob + "', Married='" + married + "', address='" + add + "', contact_no='" + contac + "', email='" + email + "', designation='" + desig + "', department='" + dep + "', qualification='" + qualif + "', position_type='" + position + "', yoExp='" + exp + "', doJoin='" + Doj + "', work_place='" + workP + "', monthlySalary='" + mthsal + "', yearlySalary='" + yearSal + "', Deduction='" + dedu + "', netSalary='" + netsal + "', wage_type='" + Wage + "', totalDays='" + twd + "', halfLeaves='" + hLev + "', fullLeaves='" + fLev + "', totalPresent='" + pres + "'" + "WHERE emp_id='" + empID + "';";
             pst = SqliteConnect.conn.prepareStatement(sql);
+            pst.setBytes(1, emp_image);
+            System.out.println(sql);
+
             int a = pst.executeUpdate();
             if (a != 0) {
                 JOptionPane.showMessageDialog(null, "Successfully Updated Employee");
             } else {
                 JOptionPane.showMessageDialog(null, "Something went wrong in updating");
             }
+        } catch (IOException ex) {
+            Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (HeadlessException | SQLException e) {
-            System.out.println("asdasd");
             JOptionPane.showMessageDialog(null, e.getMessage());
+            System.out.println(e);
         }
     }//GEN-LAST:event_UpdateBtnActionPerformed
+
+    private void postActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_postActionPerformed
+
+    private void uploadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadBtnActionPerformed
+        JFileChooser FileChooser = new JFileChooser();
+        FileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.IMAGE", "jpg", "png", "gif");
+        FileChooser.addChoosableFileFilter(filter);
+        int result = FileChooser.showSaveDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = FileChooser.getSelectedFile();
+            path = selectedFile.getAbsolutePath();
+            imageLabel.setIcon(resizeImage(path));
+
+        } else if (result == JFileChooser.CANCEL_OPTION) {
+            System.out.println("No file choosen");
+        }
+    }//GEN-LAST:event_uploadBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1144,4 +1209,16 @@ public class EmployeeForm extends javax.swing.JFrame {
     protected javax.swing.JTextField yearlyInp;
     protected javax.swing.JRadioButton yess;
     // End of variables declaration//GEN-END:variables
+
+    public ImageIcon resizeImage(String path) {
+        ImageIcon empImage = new ImageIcon(path);
+        Image img = empImage.getImage();
+        System.out.println(img);
+        Image newImg = img.getScaledInstance(imageLabel.getWidth() - 2, imageLabel.getHeight() - 2, Image.SCALE_SMOOTH);
+        System.out.println(newImg);
+
+        ImageIcon newEmpImg = new ImageIcon(newImg);
+        System.out.println(newEmpImg);
+        return newEmpImg;
+    }
 }
