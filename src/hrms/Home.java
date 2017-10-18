@@ -276,6 +276,11 @@ public class Home extends javax.swing.JFrame {
         jButton3.setText("Admin Panel");
         jButton3.setBorderPainted(false);
         jButton3.setFocusPainted(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 120, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 40));
@@ -352,6 +357,11 @@ public class Home extends javax.swing.JFrame {
     private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
 
     }//GEN-LAST:event_jLabel1MouseEntered
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        AdminPanel ad = new AdminPanel();
+        ad.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

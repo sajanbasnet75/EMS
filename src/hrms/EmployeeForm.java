@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -33,7 +34,20 @@ public class EmployeeForm extends javax.swing.JFrame {
     public EmployeeForm() {
         initComponents();
         UpdateBtn.setEnabled(false);
-        DelBtn.setEnabled(false);
+        //for combobox
+        try {
+            SqliteConnect.connectDb();
+            String sql = "SELECT dep_name FROM department";
+            pst = SqliteConnect.conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                String set = rs.getString("dep_name");
+                DefaultComboBoxModel model = (DefaultComboBoxModel) Department.getModel();
+                model.addElement(set);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
 
     }
 
@@ -48,7 +62,7 @@ public class EmployeeForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         imageLabel = new javax.swing.JLabel();
-        javax.swing.JButton uploadBtn = new javax.swing.JButton();
+        uploadBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         n = new javax.swing.JSeparator();
@@ -92,8 +106,6 @@ public class EmployeeForm extends javax.swing.JFrame {
         Designation = new javax.swing.JTextField();
         jSeparator18 = new javax.swing.JSeparator();
         jLabel15 = new javax.swing.JLabel();
-        Department = new javax.swing.JTextField();
-        jSeparator19 = new javax.swing.JSeparator();
         jLabel16 = new javax.swing.JLabel();
         jSeparator20 = new javax.swing.JSeparator();
         jSeparator21 = new javax.swing.JSeparator();
@@ -141,15 +153,21 @@ public class EmployeeForm extends javax.swing.JFrame {
         confirmBtn = new javax.swing.JButton();
         UpdateBtn = new javax.swing.JButton();
         jSeparator11 = new javax.swing.JSeparator();
-        DelBtn = new javax.swing.JButton();
         post = new javax.swing.JComboBox<>();
         wageSel = new javax.swing.JComboBox<>();
         empId = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
+        Department = new javax.swing.JComboBox();
+        depaddLab = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Employee");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(220, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -161,7 +179,7 @@ public class EmployeeForm extends javax.swing.JFrame {
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imageLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\ee.png")); // NOI18N
+        imageLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\ee.png")); // NOI18N
         imageLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel7.add(imageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 180, 190));
 
@@ -475,22 +493,6 @@ public class EmployeeForm extends javax.swing.JFrame {
         jLabel15.setText("Department");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 130, 30));
 
-        Department.setBackground(new java.awt.Color(220, 255, 255));
-        Department.setFont(new java.awt.Font("Times New Roman", 0, 15)); // NOI18N
-        Department.setForeground(new java.awt.Color(51, 51, 51));
-        Department.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Department.setBorder(null);
-        Department.setOpaque(false);
-        Department.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DepartmentActionPerformed(evt);
-            }
-        });
-        jPanel1.add(Department, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 160, 20));
-
-        jSeparator19.setForeground(new java.awt.Color(153, 153, 255));
-        jPanel1.add(jSeparator19, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, 160, 10));
-
         jLabel16.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
         jLabel16.setText("Start Date");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 130, 30));
@@ -554,7 +556,7 @@ public class EmployeeForm extends javax.swing.JFrame {
         jPanel1.add(workLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 180, 160, 20));
 
         jSeparator24.setForeground(new java.awt.Color(153, 153, 255));
-        jPanel1.add(jSeparator24, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 210, 150, 10));
+        jPanel1.add(jSeparator24, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 200, 150, 10));
 
         jLabel26.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
         jLabel26.setText("Monthly Salary");
@@ -766,13 +768,10 @@ public class EmployeeForm extends javax.swing.JFrame {
                 UpdateBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(UpdateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 800, 130, 30));
+        jPanel1.add(UpdateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 800, 130, 30));
         jPanel1.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 840, 940, 10));
 
-        DelBtn.setBackground(new java.awt.Color(255, 51, 51));
-        DelBtn.setText("DELETE");
-        jPanel1.add(DelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 800, 130, 30));
-
+        post.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
         post.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "full time", "part time", "Intern" }));
         post.setToolTipText("");
         post.addActionListener(new java.awt.event.ActionListener() {
@@ -782,6 +781,7 @@ public class EmployeeForm extends javax.swing.JFrame {
         });
         jPanel1.add(post, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 240, 130, 30));
 
+        wageSel.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
         wageSel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Annual", "Hourly" }));
         jPanel1.add(wageSel, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 420, 160, 30));
 
@@ -798,6 +798,24 @@ public class EmployeeForm extends javax.swing.JFrame {
         });
         jPanel1.add(empId, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 160, 20));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 792, 940, 10));
+
+        Department.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
+        Department.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DepartmentActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Department, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, 150, 30));
+
+        depaddLab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        depaddLab.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\plus.png")); // NOI18N
+        depaddLab.setToolTipText("Add Departments");
+        depaddLab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                depaddLabMouseClicked(evt);
+            }
+        });
+        jPanel1.add(depaddLab, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 30, 30));
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -827,10 +845,6 @@ public class EmployeeForm extends javax.swing.JFrame {
     private void dobInpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dobInpActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dobInpActionPerformed
-
-    private void DepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepartmentActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DepartmentActionPerformed
 
     private void qualifiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qualifiActionPerformed
         // TODO add your handling code here:
@@ -877,15 +891,6 @@ public class EmployeeForm extends javax.swing.JFrame {
         try {
 
             //image
-            File imgg = new File(path);
-            FileInputStream phot = new FileInputStream(imgg);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            byte[] b = new byte[1024];
-            for (int i; (i = phot.read(b)) != -1;) {
-                baos.write(b, 0, i);
-            }
-            emp_image = baos.toByteArray();
-
             String first = firstName.getText();
             String middle = middleName.getText();
             String last = lastName.getText();
@@ -910,7 +915,7 @@ public class EmployeeForm extends javax.swing.JFrame {
 
             String empID = empId.getText();
             String desig = Designation.getText();
-            String dep = Department.getText();
+            String dep = (String) Department.getSelectedItem();
             String Doj = doj.getText();
             String qualif = qualifi.getText();
             String exp = expInp.getText();
@@ -945,10 +950,6 @@ public class EmployeeForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
             JOptionPane.showMessageDialog(null, "error");
 
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_confirmBtnActionPerformed
 
@@ -978,15 +979,22 @@ public class EmployeeForm extends javax.swing.JFrame {
 
     private void UpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBtnActionPerformed
         try {
+            String empID = empId.getText();
             //image
-            File imgg = new File(path);
-            FileInputStream phot = new FileInputStream(imgg);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            byte[] b = new byte[1024];
-            for (int i; (i = phot.read(b)) != -1;) {
-                baos.write(b, 0, i);
+            byte[] emp_image1 = null;
+            byte[] emp_image2;
+            SqliteConnect.connectDb();
+            String sqlS = "SELECT photo FROM employee WHERE emp_id='" + empID + "'";
+            pst = SqliteConnect.conn.prepareStatement(sqlS);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                emp_image1 = rs.getBytes("photo");
             }
-            emp_image = baos.toByteArray();
+            if (emp_image != null) {
+                emp_image2 = emp_image;
+            } else {
+                emp_image2 = emp_image1;
+            }
             String first = firstName.getText();
             System.out.println(first);
             String middle = middleName.getText();
@@ -1010,9 +1018,8 @@ public class EmployeeForm extends javax.swing.JFrame {
                 married = "No";
             }
 
-            String empID = empId.getText();
             String desig = Designation.getText();
-            String dep = Department.getText();
+            String dep = (String) Department.getSelectedItem();
             String Doj = doj.getText();
             String qualif = qualifi.getText();
             String exp = expInp.getText();
@@ -1031,7 +1038,7 @@ public class EmployeeForm extends javax.swing.JFrame {
             SqliteConnect.connectDb();
             String sql = "UPDATE employee SET photo=?,first_name='" + first + "', middle_name='" + middle + "', last_name='" + last + "', gender='" + gender + "', dob='" + dob + "', Married='" + married + "', address='" + add + "', contact_no='" + contac + "', email='" + email + "', designation='" + desig + "', department='" + dep + "', qualification='" + qualif + "', position_type='" + position + "', yoExp='" + exp + "', doJoin='" + Doj + "', work_place='" + workP + "', monthlySalary='" + mthsal + "', yearlySalary='" + yearSal + "', Deduction='" + dedu + "', netSalary='" + netsal + "', wage_type='" + Wage + "', totalDays='" + twd + "', halfLeaves='" + hLev + "', fullLeaves='" + fLev + "', totalPresent='" + pres + "'" + "WHERE emp_id='" + empID + "';";
             pst = SqliteConnect.conn.prepareStatement(sql);
-            pst.setBytes(1, emp_image);
+            pst.setBytes(1, emp_image2);
             System.out.println(sql);
 
             int a = pst.executeUpdate();
@@ -1040,8 +1047,6 @@ public class EmployeeForm extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Something went wrong in updating");
             }
-        } catch (IOException ex) {
-            Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             System.out.println(e);
@@ -1066,7 +1071,49 @@ public class EmployeeForm extends javax.swing.JFrame {
         } else if (result == JFileChooser.CANCEL_OPTION) {
             System.out.println("No file choosen");
         }
+        try {
+            File imgg = new File(path);
+            FileInputStream phot = new FileInputStream(imgg);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] b = new byte[1024];
+            for (int i; (i = phot.read(b)) != -1;) {
+                baos.write(b, 0, i);
+            }
+            emp_image = baos.toByteArray();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_uploadBtnActionPerformed
+
+    private void DepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepartmentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DepartmentActionPerformed
+
+    private void depaddLabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_depaddLabMouseClicked
+        try {
+            String set = JOptionPane.showInputDialog("Add Department eg : Finance)");
+            if (set != null) {
+                SqliteConnect.connectDb();
+                String sql = "INSERT INTO department (dep_name)"
+                        + "VALUES('" + set + "');";
+                pst = SqliteConnect.conn.prepareStatement(sql);
+                System.out.println(sql);
+                pst.executeUpdate();
+                Department.addItem(set);
+                Department.setSelectedItem(set);
+            } else {
+                JOptionPane.showMessageDialog(null, "Cant be null");
+            }
+        } catch (HeadlessException | SQLException e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_depaddLabMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -1082,16 +1129,24 @@ public class EmployeeForm extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EmployeeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EmployeeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EmployeeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EmployeeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -1105,8 +1160,7 @@ public class EmployeeForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JTextField BonusInp;
-    public javax.swing.JButton DelBtn;
-    protected javax.swing.JTextField Department;
+    protected javax.swing.JComboBox Department;
     protected javax.swing.JTextField Designation;
     protected javax.swing.JRadioButton F;
     protected javax.swing.JTextField FullDayinp;
@@ -1123,6 +1177,7 @@ public class EmployeeForm extends javax.swing.JFrame {
     protected javax.swing.JButton confirmBtn;
     protected javax.swing.JTextField contcInp;
     protected javax.swing.JTextField deduInp;
+    protected javax.swing.JLabel depaddLab;
     protected javax.swing.JTextField dobInp;
     protected javax.swing.JTextField doj;
     protected javax.swing.JTextField emailinp;
@@ -1169,7 +1224,6 @@ public class EmployeeForm extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator17;
     private javax.swing.JSeparator jSeparator18;
-    private javax.swing.JSeparator jSeparator19;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator20;
     private javax.swing.JSeparator jSeparator21;
@@ -1204,6 +1258,7 @@ public class EmployeeForm extends javax.swing.JFrame {
     protected javax.swing.JTextField presentDayInp;
     protected javax.swing.JTextField qualifi;
     protected javax.swing.JTextField twdInp;
+    protected javax.swing.JButton uploadBtn;
     protected javax.swing.JComboBox<String> wageSel;
     protected javax.swing.JTextField workLocation;
     protected javax.swing.JTextField yearlyInp;

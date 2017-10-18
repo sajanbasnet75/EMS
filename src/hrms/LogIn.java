@@ -226,7 +226,6 @@ public class LogIn extends javax.swing.JFrame {
             String hash = String.format("%0" + (magnitude.length << 1) + "x", bi);
             return hash;
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
         }
         return "";
     }

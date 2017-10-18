@@ -7,15 +7,17 @@ package hrms;
 
 import java.awt.HeadlessException;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,6 +37,100 @@ public class MyEmployees extends javax.swing.JFrame {
     public MyEmployees() {
         initComponents();
 
+        tblEmp.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    JTable target = (JTable) e.getSource();
+                    int row = target.getSelectedRow();
+                    int column = target.getSelectedColumn();
+                    String empID = (String) target.getValueAt(row, 0);
+                    EmployeeForm empf = new EmployeeForm();
+                    empf.setVisible(true);
+                    try {
+                        SqliteConnect.connectDb();
+                        String sql = "SELECT * FROM employee WHERE emp_id='" + empID + "'";
+                        pst = SqliteConnect.conn.prepareStatement(sql);
+                        rs = pst.executeQuery();
+                        int count = 0;
+                        while (rs.next()) {
+                            count++;
+                            empf.UpdateBtn.setEnabled(true);
+                            empf.confirmBtn.setVisible(false);
+                            empf.depaddLab.setVisible(false);
+                            //image
+                            byte[] imag = rs.getBytes("photo");
+                            ImageIcon newEimg;
+                            if (imag != null) {
+                                img = new ImageIcon(imag);
+                                Image Eimg = img.getImage();
+                                Image sEimg = Eimg.getScaledInstance(empf.imageLabel.getWidth(), empf.imageLabel.getHeight(), Image.SCALE_SMOOTH);
+                                newEimg = new ImageIcon(sEimg);
+                                empf.imageLabel.setIcon(newEimg);
+                            } else {
+                                empf.imageLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\ee.png"));
+                            }
+                            empf.firstName.setText(rs.getString("first_name"));
+                            empf.middleName.setText(rs.getString("middle_name"));
+                            empf.lastName.setText(rs.getString("last_name"));
+                            empf.firstName.setText(rs.getString("first_name"));
+                            empf.middleName.setText(rs.getString("middle_name"));
+                            empf.lastName.setText(rs.getString("last_name"));
+                            empf.addressinp.setText(rs.getString("address"));
+                            empf.emailinp.setText(rs.getString("email"));
+                            empf.dobInp.setText(rs.getString("dob"));
+                            empf.contcInp.setText(rs.getString("contact_no"));
+                            empf.Department.setSelectedItem(rs.getString("department"));
+                            System.out.println(rs.getString("department"));
+                            String gender = rs.getString("gender");
+                            if (gender.equalsIgnoreCase("F")) {
+                                empf.F.setSelected(true);
+                            } else if (gender.equalsIgnoreCase("Others")) {
+                                empf.others.setSelected(true);
+                            } else {
+                                empf.M.setSelected(true);
+                            }
+
+                            String married = rs.getString("Married");
+                            if (married.equalsIgnoreCase("yes")) {
+                                empf.yess.setSelected(true);
+                            } else {
+                                empf.noo.setSelected(true);
+                            }
+                            empf.empId.setText(rs.getString("emp_id"));
+                            empf.Designation.setText(rs.getString("designation"));
+                            empf.doj.setText(rs.getString("doJoin"));
+                            empf.qualifi.setText(rs.getString("qualification"));
+                            empf.expInp.setText(rs.getString("yoExp"));
+                            empf.workLocation.setText(rs.getString("work_place"));
+                            empf.qualifi.setText(rs.getString("qualification"));
+                            empf.qualifi.setText(rs.getString("qualification"));
+                            empf.post.setSelectedItem(rs.getString("position_type"));
+                            empf.mthSalInp.setText(rs.getString("monthlySalary"));
+                            empf.yearlyInp.setText(rs.getString("yearlySalary"));
+                            empf.deduInp.setText(rs.getString("Deduction"));
+                            empf.BonusInp.setText(rs.getString("BonouS"));
+                            empf.wageSel.setSelectedItem(rs.getString("wage_type"));
+                            empf.NetsalInp.setText(rs.getString("netSalary"));
+                            empf.twdInp.setText(rs.getString("totalDays"));
+                            empf.halfLeaveinp.setText(rs.getString("halfLeaves"));
+                            empf.FullDayinp.setText(rs.getString("fullLeaves"));
+                            empf.presentDayInp.setText(rs.getString("totalPresent"));
+
+                        }
+                        if (count < 1) {
+                            JOptionPane.showMessageDialog(null, "No Results Found");
+                        }
+                    } catch (HeadlessException | NumberFormatException eq) {
+                        JOptionPane.showMessageDialog(null, "Invalid ID");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(MyEmployees.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+            }
+        });
+
     }
 
     /**
@@ -51,8 +147,6 @@ public class MyEmployees extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         nextBtn = new javax.swing.JButton();
         prevBtn1 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
@@ -62,6 +156,7 @@ public class MyEmployees extends javax.swing.JFrame {
         searchlabel = new javax.swing.JLabel();
         mainPanel2 = new javax.swing.JPanel();
         heading2 = new javax.swing.JPanel();
+        refBtn = new javax.swing.JButton();
         headLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblEmp = new javax.swing.JTable();
@@ -107,22 +202,6 @@ public class MyEmployees extends javax.swing.JFrame {
             }
         });
         jPanel2.add(prevBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
-
-        jButton1.setBackground(new java.awt.Color(0, 153, 153));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Help");
-        jButton1.setBorderPainted(false);
-        jButton1.setFocusPainted(false);
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 70, 30));
-
-        jButton3.setBackground(new java.awt.Color(0, 153, 153));
-        jButton3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Admin Panel");
-        jButton3.setBorderPainted(false);
-        jButton3.setFocusPainted(false);
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 120, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, 40));
 
@@ -175,26 +254,25 @@ public class MyEmployees extends javax.swing.JFrame {
         mainPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         heading2.setBackground(new java.awt.Color(0, 102, 102));
+        heading2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        refBtn.setBackground(new java.awt.Color(255, 51, 51));
+        refBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\refreshicon.png")); // NOI18N
+        refBtn.setToolTipText("Refresh");
+        refBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refBtnActionPerformed(evt);
+            }
+        });
+        heading2.add(refBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 0, 90, 40));
 
         headLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         headLabel2.setForeground(new java.awt.Color(255, 255, 255));
         headLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         headLabel2.setText("My EMPOYEE");
+        heading2.add(headLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 40));
 
-        javax.swing.GroupLayout heading2Layout = new javax.swing.GroupLayout(heading2);
-        heading2.setLayout(heading2Layout);
-        heading2Layout.setHorizontalGroup(
-            heading2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(heading2Layout.createSequentialGroup()
-                .addComponent(headLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 997, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        heading2Layout.setVerticalGroup(
-            heading2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(headLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-        );
-
-        mainPanel2.add(heading2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1000, 40));
+        mainPanel2.add(heading2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 990, 40));
 
         tblEmp.setAutoCreateRowSorter(true);
         tblEmp.setBackground(new java.awt.Color(245, 245, 255));
@@ -208,10 +286,16 @@ public class MyEmployees extends javax.swing.JFrame {
             new String [] {
 
             }
-        ));
+        ){
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+
+            }
+        });
+        tblEmp.setToolTipText("Double Click To View");
         tblEmp.setGridColor(new java.awt.Color(204, 204, 255));
-        tblEmp.setIntercellSpacing(new java.awt.Dimension(3, 14));
-        tblEmp.setRowHeight(160);
+        tblEmp.setRowHeight(36);
+        tblEmp.setRowMargin(10);
         jScrollPane3.setViewportView(tblEmp);
         if (tblEmp.getColumnModel().getColumnCount() > 0) {
             tblEmp.getColumnModel().getColumn(0).setHeaderValue("ID");
@@ -261,34 +345,25 @@ public class MyEmployees extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
         DefaultTableModel v = (DefaultTableModel) tblEmp.getModel();
-        v.addColumn("          Photo");
+
         v.addColumn("          EmployeeID");
-        v.addColumn("          Name");
-        v.addColumn("          Contact");
+        v.addColumn("         Name");
+        v.addColumn("          Email");
+        v.addColumn("         Contact");
         v.addColumn("          Designation");
-        v.addColumn("          Department");
+        v.addColumn("         Department");
         v.addColumn("          Start Date");
         try {
-
             SqliteConnect.connectDb();
             String sql = "SELECT * FROM employee WHERE status=1 order by emp_id DESC ";
-
-            System.out.println(sql);
             pst = SqliteConnect.conn.prepareStatement(sql);
             rs = pst.executeQuery();
             while (rs.next()) {
-                System.out.println(sql);
-
-                byte[] imag = rs.getBytes("photo");
-                img = new ImageIcon(imag);
-                Image Eimg = img.getImage();
-                ImageIcon newEimg = new ImageIcon(Eimg);
                 String name = rs.getString("first_name") + " " + rs.getString("last_name");
-
                 v.addRow(new Object[]{
-                    newEimg,
                     "            " + rs.getString("emp_id"),
                     "       " + name,
+                    "     " + rs.getString("email"),
                     "        " + rs.getString("contact_no"),
                     "      " + rs.getString("designation"),
                     "         " + rs.getString("department"),
@@ -307,7 +382,6 @@ public class MyEmployees extends javax.swing.JFrame {
         EmployeeForm empForm = new EmployeeForm();
         empForm.setVisible(true);
         empForm.UpdateBtn.setVisible(false);
-        empForm.DelBtn.setVisible(false);
     }//GEN-LAST:event_addLabelMouseClicked
 
     private void searchlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchlabelMouseClicked
@@ -325,15 +399,20 @@ public class MyEmployees extends javax.swing.JFrame {
                 EmployeeForm empf = new EmployeeForm();
                 empf.setVisible(true);
                 empf.UpdateBtn.setEnabled(true);
-                empf.DelBtn.setEnabled(true);
                 empf.confirmBtn.setVisible(false);
+                empf.depaddLab.setVisible(false);
                 //image
                 byte[] imag = rs.getBytes("photo");
-                img = new ImageIcon(imag);
-                Image Eimg = img.getImage();
-                Image sEimg = Eimg.getScaledInstance(empf.imageLabel.getWidth(), empf.imageLabel.getHeight(), Image.SCALE_SMOOTH);
-                ImageIcon newEimg = new ImageIcon(sEimg);
-                empf.imageLabel.setIcon(newEimg);
+                ImageIcon newEimg;
+                if (imag != null) {
+                    img = new ImageIcon(imag);
+                    Image Eimg = img.getImage();
+                    Image sEimg = Eimg.getScaledInstance(empf.imageLabel.getWidth(), empf.imageLabel.getHeight(), Image.SCALE_SMOOTH);
+                    newEimg = new ImageIcon(sEimg);
+                    empf.imageLabel.setIcon(newEimg);
+                } else {
+                    empf.imageLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\ee.png"));
+                }
                 empf.firstName.setText(rs.getString("first_name"));
                 empf.middleName.setText(rs.getString("middle_name"));
                 empf.lastName.setText(rs.getString("last_name"));
@@ -344,7 +423,8 @@ public class MyEmployees extends javax.swing.JFrame {
                 empf.emailinp.setText(rs.getString("email"));
                 empf.dobInp.setText(rs.getString("dob"));
                 empf.contcInp.setText(rs.getString("contact_no"));
-                empf.Department.setText(rs.getString("department"));
+                empf.Department.setSelectedItem(rs.getString("department"));
+                System.out.println(rs.getString("department"));
                 String gender = rs.getString("gender");
                 if (gender.equalsIgnoreCase("F")) {
                     empf.F.setSelected(true);
@@ -391,6 +471,36 @@ public class MyEmployees extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchlabelMouseClicked
 
+    private void refBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refBtnActionPerformed
+        DefaultTableModel t = (DefaultTableModel) tblEmp.getModel();
+        int rowCount = t.getRowCount();
+
+        for (int i = rowCount - 1; i >= 0; i--) {
+            t.removeRow(i);
+        }
+        try {
+            SqliteConnect.connectDb();
+            String sql = "SELECT * FROM employee WHERE status=1 order by emp_id DESC ";
+            pst = SqliteConnect.conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("first_name") + " " + rs.getString("last_name");
+                t.addRow(new Object[]{
+                    "            " + rs.getString("emp_id"),
+                    "       " + name,
+                    "     " + rs.getString("email"),
+                    "        " + rs.getString("contact_no"),
+                    "      " + rs.getString("designation"),
+                    "         " + rs.getString("department"),
+                    "        " + rs.getString("doJoin")
+                });
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_refBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -422,8 +532,6 @@ public class MyEmployees extends javax.swing.JFrame {
     private javax.swing.JPanel addPanel;
     private javax.swing.JLabel headLabel2;
     private javax.swing.JPanel heading2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -435,8 +543,10 @@ public class MyEmployees extends javax.swing.JFrame {
     private javax.swing.JPanel mainPanel2;
     private javax.swing.JButton nextBtn;
     private javax.swing.JButton prevBtn1;
+    protected javax.swing.JButton refBtn;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JLabel searchlabel;
-    private javax.swing.JTable tblEmp;
+    protected javax.swing.JTable tblEmp;
     // End of variables declaration//GEN-END:variables
+
 }
