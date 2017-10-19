@@ -57,7 +57,7 @@ public class MyEmployees extends javax.swing.JFrame {
                             count++;
                             empf.UpdateBtn.setEnabled(true);
                             empf.confirmBtn.setVisible(false);
-                            empf.depaddLab.setVisible(false);
+                            empf.depaddLab.setVisible(true);
                             //image
                             byte[] imag = rs.getBytes("photo");
                             ImageIcon newEimg;
@@ -163,6 +163,8 @@ public class MyEmployees extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Manage Employee");
+        setType(java.awt.Window.Type.UTILITY);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -184,6 +186,7 @@ public class MyEmployees extends javax.swing.JFrame {
         nextBtn.setBackground(new java.awt.Color(0, 102, 102));
         nextBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\next2.png")); // NOI18N
         nextBtn.setBorderPainted(false);
+        nextBtn.setEnabled(false);
         nextBtn.setFocusPainted(false);
         nextBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -323,7 +326,9 @@ public class MyEmployees extends javax.swing.JFrame {
     }//GEN-LAST:event_nextBtnActionPerformed
 
     private void prevBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevBtn1ActionPerformed
-        // TODO add your handling code here:
+        Home h = new Home();
+        h.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_prevBtn1ActionPerformed
 
     private void addLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addLabelMouseEntered

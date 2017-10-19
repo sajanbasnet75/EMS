@@ -55,8 +55,6 @@ public class AdminPanel extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         nextBtn = new javax.swing.JButton();
         prevBtn1 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         EditUser = new javax.swing.JLabel();
         EditPan = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -101,8 +99,13 @@ public class AdminPanel extends javax.swing.JFrame {
         addresslab8 = new javax.swing.JLabel();
         NewPassEd = new javax.swing.JPasswordField();
         jSeparator11 = new javax.swing.JSeparator();
+        addresslab10 = new javax.swing.JLabel();
+        newusernameEd = new javax.swing.JTextField();
+        jSeparator13 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("AdminPanel");
+        setType(java.awt.Window.Type.UTILITY);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
@@ -160,6 +163,7 @@ public class AdminPanel extends javax.swing.JFrame {
         nextBtn.setBackground(new java.awt.Color(0, 102, 102));
         nextBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\next2.png")); // NOI18N
         nextBtn.setBorderPainted(false);
+        nextBtn.setEnabled(false);
         nextBtn.setFocusPainted(false);
         nextBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,22 +182,6 @@ public class AdminPanel extends javax.swing.JFrame {
             }
         });
         jPanel2.add(prevBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
-
-        jButton1.setBackground(new java.awt.Color(0, 153, 153));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Help");
-        jButton1.setBorderPainted(false);
-        jButton1.setFocusPainted(false);
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 70, 30));
-
-        jButton3.setBackground(new java.awt.Color(0, 153, 153));
-        jButton3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Admin Panel");
-        jButton3.setBorderPainted(false);
-        jButton3.setFocusPainted(false);
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 120, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 40));
 
@@ -421,10 +409,10 @@ public class AdminPanel extends javax.swing.JFrame {
 
         addresslab7.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         addresslab7.setText("Old Password");
-        EditUserPanel.add(addresslab7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 110, 20));
+        EditUserPanel.add(addresslab7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 110, 20));
 
         jSeparator8.setForeground(new java.awt.Color(204, 204, 204));
-        EditUserPanel.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 200, 10));
+        EditUserPanel.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 300, 200, 10));
 
         usernameEd.setBackground(new java.awt.Color(149, 183, 221));
         usernameEd.setFont(new java.awt.Font("Times New Roman", 0, 15)); // NOI18N
@@ -436,11 +424,17 @@ public class AdminPanel extends javax.swing.JFrame {
 
         OldPassEd.setBackground(new java.awt.Color(149, 183, 221));
         OldPassEd.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        OldPassEd.setForeground(new java.awt.Color(204, 204, 255));
+        OldPassEd.setForeground(new java.awt.Color(51, 51, 51));
+        OldPassEd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         OldPassEd.setBorder(null);
         OldPassEd.setCaretColor(new java.awt.Color(255, 255, 255));
         OldPassEd.setOpaque(false);
-        EditUserPanel.add(OldPassEd, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 200, 20));
+        OldPassEd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OldPassEdActionPerformed(evt);
+            }
+        });
+        EditUserPanel.add(OldPassEd, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 200, 20));
 
         EdSubBtn.setBackground(new java.awt.Color(0, 153, 102));
         EdSubBtn.setText("SUBMIT");
@@ -449,22 +443,38 @@ public class AdminPanel extends javax.swing.JFrame {
                 EdSubBtnActionPerformed(evt);
             }
         });
-        EditUserPanel.add(EdSubBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, 400, 40));
+        EditUserPanel.add(EdSubBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, 400, 40));
 
         addresslab8.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         addresslab8.setText("New Password");
-        EditUserPanel.add(addresslab8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 100, 20));
+        EditUserPanel.add(addresslab8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 350, 100, 20));
 
         NewPassEd.setBackground(new java.awt.Color(149, 183, 221));
         NewPassEd.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        NewPassEd.setForeground(new java.awt.Color(204, 204, 255));
+        NewPassEd.setForeground(new java.awt.Color(153, 153, 153));
+        NewPassEd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         NewPassEd.setBorder(null);
         NewPassEd.setCaretColor(new java.awt.Color(255, 255, 255));
         NewPassEd.setOpaque(false);
-        EditUserPanel.add(NewPassEd, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 200, 20));
+        EditUserPanel.add(NewPassEd, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, 200, 20));
 
         jSeparator11.setForeground(new java.awt.Color(204, 204, 204));
-        EditUserPanel.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 300, 200, 10));
+        EditUserPanel.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 370, 200, 10));
+
+        addresslab10.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        addresslab10.setText("New Username");
+        EditUserPanel.add(addresslab10, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 110, 20));
+
+        newusernameEd.setBackground(new java.awt.Color(149, 183, 221));
+        newusernameEd.setFont(new java.awt.Font("Times New Roman", 0, 15)); // NOI18N
+        newusernameEd.setForeground(new java.awt.Color(0, 0, 51));
+        newusernameEd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        newusernameEd.setBorder(null);
+        newusernameEd.setOpaque(false);
+        EditUserPanel.add(newusernameEd, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 200, 20));
+
+        jSeparator13.setForeground(new java.awt.Color(204, 204, 204));
+        EditUserPanel.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, 200, 10));
 
         jPanel1.add(EditUserPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 580, 540));
 
@@ -479,7 +489,9 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_nextBtnActionPerformed
 
     private void prevBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevBtn1ActionPerformed
-        // TODO add your handling code here:
+        Home h = new Home();
+        h.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_prevBtn1ActionPerformed
 
     private void AddLaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddLaMouseExited
@@ -539,7 +551,49 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_AddSubBtnActionPerformed
 
     private void EdSubBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EdSubBtnActionPerformed
-        // TODO add your handling code here:
+        String name = usernameEd.getText();
+        String newName = newusernameEd.getText();
+        char[] op = OldPassEd.getPassword();
+        String oldPass = MD5(new String(op));
+        char[] np = NewPassEd.getPassword();
+        String newPass = MD5(new String(np));
+        if (name != null && op != null && np != null && newName != null) {
+            try {
+                SqliteConnect.connectDb();
+                String sql = "SELECT * FROM user WHERE username='" + name + "'";
+                pst = SqliteConnect.conn.prepareStatement(sql);
+                rs = pst.executeQuery();
+                String Old = null;
+                String Onam = null;
+                while (rs.next()) {
+                    Old = rs.getString("password");
+                    Onam = rs.getString("username");
+                }
+                if (Old.equals(oldPass) == false) {
+                    JOptionPane.showMessageDialog(null, "The given password doesnot match");
+                } else if (Onam.equals(newName)) {
+                    JOptionPane.showMessageDialog(null, "Please provide a new name");
+                } else {
+                    SqliteConnect.connectDb();
+                    String sqli = "UPDATE user SET username='" + newName + "',password='" + newPass + "' WHERE username='" + name + "'";
+                    System.out.println(sqli);
+                    pst = SqliteConnect.conn.prepareStatement(sqli);
+                    System.out.println(sqli);
+                    int a = pst.executeUpdate();
+                    if (a != 0) {
+                        JOptionPane.showMessageDialog(null, "Successfully Edited User");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Something went wrong in editing");
+                    }
+                }
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                System.out.println(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Cant be Null");
+        }
     }//GEN-LAST:event_EdSubBtnActionPerformed
 
     private void AddLaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddLaMouseClicked
@@ -581,6 +635,10 @@ public class AdminPanel extends javax.swing.JFrame {
         jLabel1.setVisible(true);
         jLabel2.setVisible(true);
     }//GEN-LAST:event_addCloseMouseClicked
+
+    private void OldPassEdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OldPassEdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_OldPassEdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -634,6 +692,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JLabel addClose;
     private javax.swing.JLabel addresslab;
     private javax.swing.JLabel addresslab1;
+    private javax.swing.JLabel addresslab10;
     private javax.swing.JLabel addresslab2;
     private javax.swing.JLabel addresslab3;
     private javax.swing.JLabel addresslab4;
@@ -648,8 +707,6 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JLabel headLabel3;
     private javax.swing.JPanel heading2;
     private javax.swing.JPanel heading3;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -657,6 +714,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -667,6 +725,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel labelDate;
     private javax.swing.JLabel lblTime;
+    protected javax.swing.JTextField newusernameEd;
     private javax.swing.JButton nextBtn;
     private javax.swing.JPasswordField passAddinp;
     private javax.swing.JButton prevBtn1;
