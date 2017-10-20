@@ -217,7 +217,7 @@ public class MyEmployees extends javax.swing.JFrame {
         addPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         addLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        addLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\adder.png")); // NOI18N
+        addLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\adder.png")); // NOI18N
         addLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addLabelMouseClicked(evt);
@@ -237,7 +237,7 @@ public class MyEmployees extends javax.swing.JFrame {
         searchPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         searchlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        searchlabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Desktop\\searcher.png")); // NOI18N
+        searchlabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\searcher.png")); // NOI18N
         searchlabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 searchlabelMouseClicked(evt);

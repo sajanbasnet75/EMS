@@ -167,7 +167,7 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\LORDsajan\Desktop\adder.png"/>
+                  <Image iconType="2" name="C:\Users\LORDsajan\Documents\NetBeansProjects\javaclassuiui\HRMS\images\adder.png"/>
                 </Property>
               </Properties>
               <Events>
@@ -203,7 +203,7 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\LORDsajan\Desktop\searcher.png"/>
+                  <Image iconType="2" name="C:\Users\LORDsajan\Documents\NetBeansProjects\javaclassuiui\HRMS\images\searcher.png"/>
                 </Property>
               </Properties>
               <Events>
