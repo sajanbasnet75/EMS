@@ -30,13 +30,17 @@ public class MyEmployees extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
     ImageIcon img;
+    String seEmpId;
+    String seEmpName;
 
     /**
      * Creates new form MyEmployees
      */
     public MyEmployees() {
+
         initComponents();
 
+        searchPan1.setVisible(false);
         tblEmp.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -155,6 +159,17 @@ public class MyEmployees extends javax.swing.JFrame {
         searchPanel = new javax.swing.JPanel();
         searchlabel = new javax.swing.JLabel();
         mainPanel2 = new javax.swing.JPanel();
+        searchPan1 = new javax.swing.JPanel();
+        heading4 = new javax.swing.JPanel();
+        addClose = new javax.swing.JLabel();
+        headLabel4 = new javax.swing.JLabel();
+        txtID1 = new javax.swing.JTextField();
+        jSeparator9 = new javax.swing.JSeparator();
+        jSeparator10 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        searchSub1 = new javax.swing.JButton();
+        txtName = new javax.swing.JTextField();
         heading2 = new javax.swing.JPanel();
         refBtn = new javax.swing.JButton();
         headLabel2 = new javax.swing.JLabel();
@@ -256,6 +271,76 @@ public class MyEmployees extends javax.swing.JFrame {
         mainPanel2.setBackground(new java.awt.Color(149, 183, 221));
         mainPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        searchPan1.setBackground(new java.awt.Color(51, 51, 51));
+        searchPan1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        heading4.setBackground(new java.awt.Color(0, 102, 102));
+        heading4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        addClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        addClose.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\close.png")); // NOI18N
+        addClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addCloseMouseClicked(evt);
+            }
+        });
+        heading4.add(addClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 0, 40, 40));
+
+        headLabel4.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        headLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        headLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        headLabel4.setText("Search For");
+        heading4.add(headLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 40));
+
+        searchPan1.add(heading4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 40));
+
+        txtID1.setBackground(new java.awt.Color(51, 51, 51));
+        txtID1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txtID1.setForeground(new java.awt.Color(255, 255, 255));
+        txtID1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtID1.setBorder(null);
+        txtID1.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtID1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtID1.setOpaque(false);
+        searchPan1.add(txtID1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 280, 30));
+
+        jSeparator9.setForeground(new java.awt.Color(102, 0, 0));
+        searchPan1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 280, 10));
+
+        jSeparator10.setForeground(new java.awt.Color(102, 0, 0));
+        searchPan1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 280, 10));
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Employee Name");
+        searchPan1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 140, 40));
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Employee ID");
+        searchPan1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 140, 40));
+
+        searchSub1.setBackground(new java.awt.Color(0, 204, 204));
+        searchSub1.setText("SUBMIT");
+        searchSub1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchSub1ActionPerformed(evt);
+            }
+        });
+        searchPan1.add(searchSub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 400, 30));
+
+        txtName.setBackground(new java.awt.Color(51, 51, 51));
+        txtName.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txtName.setForeground(new java.awt.Color(255, 255, 255));
+        txtName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtName.setBorder(null);
+        txtName.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtName.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtName.setOpaque(false);
+        searchPan1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 280, 30));
+
+        mainPanel2.add(searchPan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, -1, 250));
+
         heading2.setBackground(new java.awt.Color(0, 102, 102));
         heading2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -339,14 +424,6 @@ public class MyEmployees extends javax.swing.JFrame {
         addPanel.setBackground(new java.awt.Color(51, 51, 51));
     }//GEN-LAST:event_addLabelMouseExited
 
-    private void searchlabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchlabelMouseEntered
-        searchPanel.setBackground(new java.awt.Color(102, 102, 102));
-    }//GEN-LAST:event_searchlabelMouseEntered
-
-    private void searchlabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchlabelMouseExited
-        searchPanel.setBackground(new java.awt.Color(51, 51, 51));
-    }//GEN-LAST:event_searchlabelMouseExited
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
         DefaultTableModel v = (DefaultTableModel) tblEmp.getModel();
@@ -389,9 +466,88 @@ public class MyEmployees extends javax.swing.JFrame {
         empForm.UpdateBtn.setVisible(false);
     }//GEN-LAST:event_addLabelMouseClicked
 
-    private void searchlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchlabelMouseClicked
+    private void refBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refBtnActionPerformed
+        DefaultTableModel t = (DefaultTableModel) tblEmp.getModel();
+        int rowCount = t.getRowCount();
 
+        for (int i = rowCount - 1; i >= 0; i--) {
+            t.removeRow(i);
+        }
         try {
+            SqliteConnect.connectDb();
+            String sql = "SELECT * FROM employee WHERE status=1 order by emp_id DESC ";
+            pst = SqliteConnect.conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("first_name") + " " + rs.getString("last_name");
+                t.addRow(new Object[]{
+                    "            " + rs.getString("emp_id"),
+                    "       " + name,
+                    "     " + rs.getString("email"),
+                    "        " + rs.getString("contact_no"),
+                    "      " + rs.getString("designation"),
+                    "         " + rs.getString("department"),
+                    "        " + rs.getString("doJoin")
+                });
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_refBtnActionPerformed
+
+    private void searchSub1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchSub1ActionPerformed
+        String empID = txtID1.getText();
+        String firstName = txtName.getText();
+        if (empID == null && firstName == null) {
+            JOptionPane.showMessageDialog(null, "Both Field Cant be Empty");
+        } else {
+            DefaultTableModel t = (DefaultTableModel) tblEmp.getModel();
+            int rowCount = t.getRowCount();
+
+            for (int i = rowCount - 1; i >= 0; i--) {
+                t.removeRow(i);
+            }
+            try {
+                SqliteConnect.connectDb();
+                String sql = "SELECT * FROM employee WHERE first_name='" + firstName + "' OR emp_id='" + empID + "' order by emp_id DESC ";
+                pst = SqliteConnect.conn.prepareStatement(sql);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    String name = rs.getString("first_name") + " " + rs.getString("last_name");
+                    t.addRow(new Object[]{
+                        "            " + rs.getString("emp_id"),
+                        "       " + name,
+                        "     " + rs.getString("email"),
+                        "        " + rs.getString("contact_no"),
+                        "      " + rs.getString("designation"),
+                        "         " + rs.getString("department"),
+                        "        " + rs.getString("doJoin")
+                    });
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+            searchPan1.setVisible(false);
+        }
+    }//GEN-LAST:event_searchSub1ActionPerformed
+
+    private void addCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addCloseMouseClicked
+
+    }//GEN-LAST:event_addCloseMouseClicked
+
+    private void searchlabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchlabelMouseExited
+        searchPanel.setBackground(new java.awt.Color(51, 51, 51));
+    }//GEN-LAST:event_searchlabelMouseExited
+
+    private void searchlabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchlabelMouseEntered
+        searchPanel.setBackground(new java.awt.Color(102, 102, 102));
+    }//GEN-LAST:event_searchlabelMouseEntered
+
+    private void searchlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchlabelMouseClicked
+        searchPan1.setVisible(true);
+        /*try {
             String empID = JOptionPane.showInputDialog(null, "Enter the Employee ID");
             int id = Integer.parseInt(empID);
             SqliteConnect.connectDb();
@@ -474,37 +630,8 @@ public class MyEmployees extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(MyEmployees.class.getName()).log(Level.SEVERE, null, ex);
         }
+         */
     }//GEN-LAST:event_searchlabelMouseClicked
-
-    private void refBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refBtnActionPerformed
-        DefaultTableModel t = (DefaultTableModel) tblEmp.getModel();
-        int rowCount = t.getRowCount();
-
-        for (int i = rowCount - 1; i >= 0; i--) {
-            t.removeRow(i);
-        }
-        try {
-            SqliteConnect.connectDb();
-            String sql = "SELECT * FROM employee WHERE status=1 order by emp_id DESC ";
-            pst = SqliteConnect.conn.prepareStatement(sql);
-            rs = pst.executeQuery();
-            while (rs.next()) {
-                String name = rs.getString("first_name") + " " + rs.getString("last_name");
-                t.addRow(new Object[]{
-                    "            " + rs.getString("emp_id"),
-                    "       " + name,
-                    "     " + rs.getString("email"),
-                    "        " + rs.getString("contact_no"),
-                    "      " + rs.getString("designation"),
-                    "         " + rs.getString("department"),
-                    "        " + rs.getString("doJoin")
-                });
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }//GEN-LAST:event_refBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -533,25 +660,45 @@ public class MyEmployees extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addClose;
     private javax.swing.JLabel addLabel;
     private javax.swing.JPanel addPanel;
     private javax.swing.JLabel headLabel2;
+    private javax.swing.JLabel headLabel3;
+    private javax.swing.JLabel headLabel4;
     private javax.swing.JPanel heading2;
+    private javax.swing.JPanel heading3;
+    private javax.swing.JPanel heading4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JPanel mainPanel2;
     private javax.swing.JButton nextBtn;
     private javax.swing.JButton prevBtn1;
     protected javax.swing.JButton refBtn;
+    private javax.swing.JPanel searchPan;
+    private javax.swing.JPanel searchPan1;
     private javax.swing.JPanel searchPanel;
+    private javax.swing.JButton searchSub;
+    private javax.swing.JButton searchSub1;
     private javax.swing.JLabel searchlabel;
     protected javax.swing.JTable tblEmp;
+    public javax.swing.JTextField txtID;
+    public javax.swing.JTextField txtID1;
+    public javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 
 }
