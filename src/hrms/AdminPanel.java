@@ -112,7 +112,7 @@ public class AdminPanel extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         AddLa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        AddLa.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\addim.png")); // NOI18N
+        AddLa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hrms/images/addim.png"))); // NOI18N
         AddLa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 AddLaMouseClicked(evt);
@@ -161,7 +161,7 @@ public class AdminPanel extends javax.swing.JFrame {
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 10, 40));
 
         nextBtn.setBackground(new java.awt.Color(0, 102, 102));
-        nextBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\next2.png")); // NOI18N
+        nextBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hrms/images/next2.png"))); // NOI18N
         nextBtn.setBorderPainted(false);
         nextBtn.setEnabled(false);
         nextBtn.setFocusPainted(false);
@@ -173,7 +173,7 @@ public class AdminPanel extends javax.swing.JFrame {
         jPanel2.add(nextBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 40, 40));
 
         prevBtn1.setBackground(new java.awt.Color(0, 102, 102));
-        prevBtn1.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\prev2.png")); // NOI18N
+        prevBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hrms/images/prev2.png"))); // NOI18N
         prevBtn1.setBorderPainted(false);
         prevBtn1.setFocusPainted(false);
         prevBtn1.addActionListener(new java.awt.event.ActionListener() {
@@ -186,7 +186,7 @@ public class AdminPanel extends javax.swing.JFrame {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 40));
 
         EditUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        EditUser.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\ediit.png")); // NOI18N
+        EditUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hrms/images/ediit.png"))); // NOI18N
         EditUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 EditUserMouseClicked(evt);
@@ -234,7 +234,7 @@ public class AdminPanel extends javax.swing.JFrame {
         heading2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         addClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        addClose.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\close.png")); // NOI18N
+        addClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hrms/images/close.png"))); // NOI18N
         addClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addCloseMouseClicked(evt);

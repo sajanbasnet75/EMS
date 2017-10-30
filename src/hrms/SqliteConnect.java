@@ -21,7 +21,7 @@ public class SqliteConnect {
     public static Connection connectDb() {
         try {
             Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\database\\hrms.sqlite");
+            conn = DriverManager.getConnection("jdbc:sqlite:hrms.sqlite");
             return conn;
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());

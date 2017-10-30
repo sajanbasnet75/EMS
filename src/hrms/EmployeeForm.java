@@ -96,6 +96,7 @@ public class EmployeeForm extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        addClose = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -160,8 +161,9 @@ public class EmployeeForm extends javax.swing.JFrame {
         Department = new javax.swing.JComboBox();
         depaddLab = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Employee Form");
+        setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -179,7 +181,7 @@ public class EmployeeForm extends javax.swing.JFrame {
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imageLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\ee.png")); // NOI18N
+        imageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hrms/images/ee.png"))); // NOI18N
         imageLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel7.add(imageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 180, 190));
 
@@ -410,22 +412,22 @@ public class EmployeeForm extends javax.swing.JFrame {
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, 610, 40));
 
         jPanel4.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        addClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        addClose.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\close.png")); // NOI18N
+        addClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addCloseMouseClicked(evt);
+            }
+        });
+        jPanel4.add(addClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 0, 40, 40));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("OFFICE INFORMATION");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-        );
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 554, 40));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 610, 40));
 
@@ -474,7 +476,7 @@ public class EmployeeForm extends javax.swing.JFrame {
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 130, 30));
 
         Designation.setBackground(new java.awt.Color(220, 255, 255));
-        Designation.setFont(new java.awt.Font("Times New Roman", 0, 15)); // NOI18N
+        Designation.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
         Designation.setForeground(new java.awt.Color(51, 51, 51));
         Designation.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Designation.setBorder(null);
@@ -484,7 +486,7 @@ public class EmployeeForm extends javax.swing.JFrame {
                 DesignationActionPerformed(evt);
             }
         });
-        jPanel1.add(Designation, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 160, 20));
+        jPanel1.add(Designation, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 170, 20));
 
         jSeparator18.setForeground(new java.awt.Color(153, 153, 255));
         jPanel1.add(jSeparator18, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 160, 10));
@@ -785,6 +787,7 @@ public class EmployeeForm extends javax.swing.JFrame {
         wageSel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Annual", "Hourly" }));
         jPanel1.add(wageSel, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 420, 160, 30));
 
+        empId.setEditable(false);
         empId.setBackground(new java.awt.Color(220, 255, 255));
         empId.setFont(new java.awt.Font("Times New Roman", 0, 15)); // NOI18N
         empId.setForeground(new java.awt.Color(51, 51, 51));
@@ -808,7 +811,7 @@ public class EmployeeForm extends javax.swing.JFrame {
         jPanel1.add(Department, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, 150, 30));
 
         depaddLab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        depaddLab.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\plus.png")); // NOI18N
+        depaddLab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hrms/images/plus.png"))); // NOI18N
         depaddLab.setToolTipText("Add Departments");
         depaddLab.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -978,6 +981,7 @@ public class EmployeeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lastNameActionPerformed
 
     private void UpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBtnActionPerformed
+        this.dispose();
         try {
             String empID = empId.getText();
             //image
@@ -1067,23 +1071,22 @@ public class EmployeeForm extends javax.swing.JFrame {
             File selectedFile = FileChooser.getSelectedFile();
             path = selectedFile.getAbsolutePath();
             imageLabel.setIcon(resizeImage(path));
-
-        } else if (result == JFileChooser.CANCEL_OPTION) {
-            System.out.println("No file choosen");
-        }
-        try {
-            File imgg = new File(path);
-            FileInputStream phot = new FileInputStream(imgg);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            byte[] b = new byte[1024];
-            for (int i; (i = phot.read(b)) != -1;) {
-                baos.write(b, 0, i);
+            try {
+                File imgg = new File(path);
+                FileInputStream phot = new FileInputStream(imgg);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                byte[] b = new byte[1024];
+                for (int i; (i = phot.read(b)) != -1;) {
+                    baos.write(b, 0, i);
+                }
+                emp_image = baos.toByteArray();
+            } catch (FileNotFoundException ex) {
+                System.out.println(ex);
+            } catch (IOException ex) {
+                System.out.println(ex);
             }
-            emp_image = baos.toByteArray();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, null, ex);
+        } else if (result == JFileChooser.CANCEL_OPTION) {
+
         }
     }//GEN-LAST:event_uploadBtnActionPerformed
 
@@ -1114,6 +1117,10 @@ public class EmployeeForm extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
     }//GEN-LAST:event_formWindowOpened
+
+    private void addCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addCloseMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_addCloseMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1167,6 +1174,7 @@ public class EmployeeForm extends javax.swing.JFrame {
     protected javax.swing.JRadioButton M;
     protected javax.swing.JTextField NetsalInp;
     public javax.swing.JButton UpdateBtn;
+    private javax.swing.JLabel addClose;
     protected javax.swing.JTextField addressinp;
     private javax.swing.JLabel addresslab;
     private javax.swing.JLabel addresslab1;

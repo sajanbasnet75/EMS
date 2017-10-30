@@ -101,7 +101,7 @@ public class Home extends javax.swing.JFrame {
         jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 140, 130));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\close.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hrms/images/close.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 250, 30, 30));
 
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -199,7 +199,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(204, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\okhome.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hrms/images/okhome.png"))); // NOI18N
         jLabel1.setFocusable(false);
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -277,7 +277,7 @@ public class Home extends javax.swing.JFrame {
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 10, 40));
 
         nextBtn.setBackground(new java.awt.Color(0, 102, 102));
-        nextBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\next2.png")); // NOI18N
+        nextBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hrms/images/next2.png"))); // NOI18N
         nextBtn.setBorderPainted(false);
         nextBtn.setFocusPainted(false);
         nextBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -288,7 +288,7 @@ public class Home extends javax.swing.JFrame {
         jPanel2.add(nextBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 40, 40));
 
         prevBtn1.setBackground(new java.awt.Color(0, 102, 102));
-        prevBtn1.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\prev2.png")); // NOI18N
+        prevBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hrms/images/prev2.png"))); // NOI18N
         prevBtn1.setBorderPainted(false);
         prevBtn1.setEnabled(false);
         prevBtn1.setFocusPainted(false);
@@ -334,11 +334,11 @@ public class Home extends javax.swing.JFrame {
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, 130, 50));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\close.png")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hrms/images/close.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 30, 30));
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\LORDsajan\\Documents\\NetBeansProjects\\javaclassuiui\\HRMS\\images\\close.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hrms/images/close.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 30, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -413,6 +413,7 @@ public class Home extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         AdminPanel ad = new AdminPanel();
         ad.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

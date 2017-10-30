@@ -119,11 +119,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="LOGIN"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
-                <BevelBorder/>
-              </Border>
-            </Property>
+            <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoginActionPerformed"/>
@@ -185,7 +181,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\LORDsajan\Documents\NetBeansProjects\javaclassuiui\HRMS\images\logoo2.png"/>
+              <Image iconType="3" name="/hrms/images/logoo2.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -198,7 +194,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\LORDsajan\Documents\NetBeansProjects\javaclassuiui\HRMS\images\ba.jpg"/>
+              <Image iconType="3" name="/hrms/images/ba.jpg"/>
             </Property>
           </Properties>
           <Constraints>
